@@ -1,0 +1,28 @@
+{
+  "name": "must-company-quest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:quest4": "ts-node src/quest4-linux-crawler/index.ts",
+    "build": "tsc",
+    "start:quest4": "node dist/quest4-linux-crawler/index.js"
+  },
+  "keywords": [],
+  "author": "k3ndo",
+  "license": "ISC",
+  "description": "This is an Automation Engineering and Robot Process Automation (RPA) test for a backend engineering role",
+  "dependencies": {
+    "axios": "^1.13.5",
+    "cheerio": "^1.2.0",
+    "dotenv": "^17.3.1",
+    "node-cron": "^4.2.1",
+    "winston": "^3.19.0"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.35",
+    "@types/node": "^25.2.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
