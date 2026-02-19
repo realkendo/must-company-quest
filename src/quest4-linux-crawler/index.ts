@@ -1,22 +1,54 @@
 /**
  * index.ts (Quest 4 Entry Point)
  *
- * This file is the starting point of the Linux crawler system.
+ * This file is the entry point of the Linux crawler system.
  * 
- * For now, we are only testing the logger.
- * Later, this will:
- * - Trigger crawling
- * - Handle scheduling
- * - Measure performance
+ * It orchestrates
+ * - Timing 
+ * - Crawling
+ * - Logging
+ * - Saving results
  */
 
 import logger from "../shared/logger";
+import { measureExecutionTime } from "../shared/timer";
+import { crawl } from "../shared/crawler";
+import "dotenv/config"
+import { saveJSON } from "../shared/storage";
 
-// Log an informational message
-logger.info("Crawler started");
 
-// Log a warning message
-logger.warn("This is a warning");
 
-// Log an error message
-logger.error("This is an error example");
+async function runCrawler(){
+  try{
+    logger.info("Starting crawl process... ");
+
+  // setting that target url with the exclamation at the end to quiet the undefined warning
+  // however, it won't prevent an undefined for the variable at runtime if environment variable is missing
+  const targetURL : string = process.env.TARGET_URL!;
+
+
+  if(!targetURL){
+    throw new Error(" TARGET_URL environment variable is missing")
+  }
+
+    const { result, durationMs } = await measureExecutionTime( "crawl", ()=> crawl(targetURL));
+
+    logger.info(`Crawl competed in ${durationMs} ms`);
+    const filepath = await saveJSON({
+      metadata: {
+        url: targetURL,
+        crawlTimeMs: durationMs,
+        timestamp: new Date().toISOString()
+      },
+      data: result
+    });
+
+    logger.info(`Data saved to: ${filepath}`);
+  }
+  // catching error if try block fails
+  catch(error){
+    logger.error("Crawl failed", error);
+  }
+}
+
+runCrawler();
