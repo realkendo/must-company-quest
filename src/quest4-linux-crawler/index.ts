@@ -1,53 +1,53 @@
 /**
- * index.ts (Quest 4 Entry Point)
+ * index.ts
  *
- * This file is the entry point of the Linux crawler system.
- * 
- * It orchestrates
- * - Timing 
- * - Crawling
- * - Logging
- * - Saving results
+ * Main entry point for Quest 4 Linux crawler.
  */
 
+import { login } from "./auth";
+import client from "../shared/httpClient";
+import * as cheerio from "cheerio";
 import logger from "../shared/logger";
-import { measureExecutionTime } from "../shared/timer";
-import { crawl } from "../shared/crawler";
-import "dotenv/config"
-import { saveJSON } from "../shared/storage";
+import fs from "fs/promises";
+import path from "path";
+import { retry } from "../shared/retry";
+import { BASE_URL } from "../config";
 
+async function runCrawler() {
+  try {
+    logger.info("Starting crawl process...");
 
+    await login();
 
-async function runCrawler(){
-  try{
-    logger.info("Starting crawl process... ");
+    // Now we are authenticated
+    const response = await retry(()=> client.get(BASE_URL));
 
-  // setting that target url with the exclamation at the end to quiet the undefined warning
-  // however, it won't prevent an undefined for the variable at runtime if environment variable is missing
-  const targetURL : string = process.env.TARGET_URL!;
+    const $ = cheerio.load(response.data);
 
+    const quotes = $(".quote")
+      .map((_, el) => ({
+        text: $(el).find(".text").text(),
+        author: $(el).find(".author").text()
+      }))
+      .get();
 
-  if(!targetURL){
-    throw new Error(" TARGET_URL environment variable is missing")
-  }
+    const output = {
+      url: "http://quotes.toscrape.com",
+      quotes,
+      timestamp: new Date().toISOString()
+    };
 
-    const { result, durationMs } = await measureExecutionTime( "crawl", ()=> crawl(targetURL));
+    const filePath = path.join(
+      __dirname,
+      "../../data",
+      `crawl-${Date.now()}.json`
+    );
 
-    logger.info(`Crawl competed in ${durationMs} ms`);
-    const filepath = await saveJSON({
-      metadata: {
-        url: targetURL,
-        crawlTimeMs: durationMs,
-        timestamp: new Date().toISOString()
-      },
-      data: result
-    });
+    await fs.writeFile(filePath, JSON.stringify(output, null, 2));
 
-    logger.info(`Data saved to: ${filepath}`);
-  }
-  // catching error if try block fails
-  catch(error){
-    logger.error("Crawl failed", error);
+    logger.info(`Data saved to: ${filePath}`);
+  } catch (error: any) {
+    logger.error(`Crawl failed: ${error.message}`);
   }
 }
 

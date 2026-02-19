@@ -14,9 +14,11 @@
   "description": "This is an Automation Engineering and Robot Process Automation (RPA) test for a backend engineering role",
   "dependencies": {
     "axios": "^1.13.5",
+    "axios-cookiejar-support": "^6.0.5",
     "cheerio": "^1.2.0",
     "dotenv": "^17.3.1",
     "node-cron": "^4.2.1",
+    "tough-cookie": "^6.0.0",
     "winston": "^3.19.0"
   },
   "devDependencies": {

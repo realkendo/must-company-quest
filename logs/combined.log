@@ -11,3 +11,22 @@
 {"level":"info","message":"Starting crawl process... ","timestamp":"2026-02-19T01:48:38.269Z"}
 {"level":"info","message":"Crawl competed in 3238 ms","timestamp":"2026-02-19T01:48:41.516Z"}
 {"level":"info","message":"Data saved to: C:\\Users\\KENNETH\\Desktop\\realkendo\\ken\\must-company-quest\\data\\crawl-1771465721518.json","timestamp":"2026-02-19T01:48:41.523Z"}
+{"level":"info","message":"Starting crawl process...","timestamp":"2026-02-19T11:53:10.887Z"}
+{"level":"info","message":"Fetching login page...","timestamp":"2026-02-19T11:53:10.892Z"}
+{"level":"info","message":"CSRF token extracted","timestamp":"2026-02-19T11:53:11.695Z"}
+{"level":"info","message":"Login successful","timestamp":"2026-02-19T11:53:12.750Z"}
+{"level":"info","message":"Data saved to: C:\\Users\\KENNETH\\Desktop\\realkendo\\ken\\must-company-quest\\data\\crawl-1771501993348.json","timestamp":"2026-02-19T11:53:13.356Z"}
+{"level":"info","message":"Starting crawl process...","timestamp":"2026-02-19T12:32:41.321Z"}
+{"level":"info","message":"Fetching login page...","timestamp":"2026-02-19T12:32:41.326Z"}
+{"level":"info","message":"Attempt 1...","timestamp":"2026-02-19T12:32:41.327Z"}
+{"level":"info","message":"CSRF token extracted","timestamp":"2026-02-19T12:32:42.161Z"}
+{"level":"info","message":"Attempt 1...","timestamp":"2026-02-19T12:32:42.162Z"}
+{"level":"info","message":"Login successful","timestamp":"2026-02-19T12:32:43.197Z"}
+{"level":"info","message":"Attempt 1...","timestamp":"2026-02-19T12:32:43.198Z"}
+{"level":"warn","message":"Attempt 1 failed: Request failed with status code 404","timestamp":"2026-02-19T12:32:43.822Z"}
+{"level":"info","message":"Attempt 2...","timestamp":"2026-02-19T12:32:45.911Z"}
+{"level":"warn","message":"Attempt 2 failed: Request failed with status code 404","timestamp":"2026-02-19T12:32:46.391Z"}
+{"level":"info","message":"Attempt 3...","timestamp":"2026-02-19T12:32:48.406Z"}
+{"level":"warn","message":"Attempt 3 failed: Request failed with status code 404","timestamp":"2026-02-19T12:32:48.867Z"}
+{"level":"error","message":"Max retry attempts reached.","timestamp":"2026-02-19T12:32:48.867Z"}
+{"level":"error","message":"Crawl failed: Request failed with status code 404","timestamp":"2026-02-19T12:32:48.867Z"}
