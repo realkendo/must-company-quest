@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:quest1": "ts-node src/quest1-windows-rpa/index.ts",
     "dev:quest4": "ts-node src/quest4-linux-crawler/index.ts",
-    "build": "tsc",
+    "start:quest1": "node dist/quest1-windows-rpa/index.js",
     "start:quest4": "node dist/quest4-linux-crawler/index.js"
   },
   "keywords": [],
@@ -18,6 +20,7 @@
     "cheerio": "^1.2.0",
     "dotenv": "^17.3.1",
     "node-cron": "^4.2.1",
+    "playwright": "^1.58.2",
     "tough-cookie": "^6.0.0",
     "winston": "^3.19.0"
   },
